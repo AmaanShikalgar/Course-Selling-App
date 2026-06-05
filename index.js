@@ -32,4 +32,6 @@ app.delete("/deleteCourse",function(req,res){
 })
 
 
-app.listen(3000)
+app.listen(3000,function(){
+    console.log("Server running on 3000")
+})
