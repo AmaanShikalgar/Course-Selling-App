@@ -14,7 +14,9 @@ userRouter.post("/signin",function(req,res){
 
 
 userRouter.get("/purchases",function(req,res){
-        
+        res.json({
+            message: "works"
+        })
     })
 
 module.exports = {
