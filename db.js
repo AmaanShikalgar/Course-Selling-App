@@ -1,12 +1,4 @@
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-dotenv.config();
-
-mongoose.connect(process.env.MONGO_URI)
-.then(() =>
-    console.log("MongoDb Connected"))
-.catch((err) => console.log(err));
-
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
