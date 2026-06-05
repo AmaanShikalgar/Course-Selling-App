@@ -1,6 +1,7 @@
 const express = require('express');
 const { userRouter } = require("./routes/user");
-const{ courseRouter } = require("./routes/course");
+const { courseRouter } = require("./routes/course");
+const { adminRouter } = require("./routes/admin");
 const app = express();
 
 app.use(express());
@@ -12,25 +13,7 @@ function credentials(req){
 
 app.use("/user",userRouter);
 app.use("/course",courseRouter);
-
-
-
-app.post("/adminLogin",function(req,res){
-
-})
-
-app.post("/adminSignup",function(req,res){
-
-})
-
-app.post("/createCourse",function(req,res){
-
-})
-
-app.delete("/deleteCourse",function(req,res){
-
-})
-
+app.use("/admin",adminRouter);
 
 app.listen(3000,function(){
     console.log("Server running on 3000")
