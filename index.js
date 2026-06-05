@@ -13,6 +13,8 @@ function credentials(req){
 app.use("/user",userRouter);
 app.use("/course",courseRouter);
 
+
+
 app.post("/adminLogin",function(req,res){
 
 })

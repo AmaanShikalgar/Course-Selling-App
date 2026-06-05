@@ -11,3 +11,6 @@ courseRouter.get("/preview",function(req,res){
     
     })
 
+module.export={
+    courseRouter = courseRouter
+}
