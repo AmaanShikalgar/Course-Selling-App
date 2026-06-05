@@ -14,24 +14,26 @@ adminRouter.post("/signup",function(req,res){
     })
 })
 
-adminRouter.get("/course",function(req,res){
-    res.json({
-        message: "Works"
-    })
-})
-adminRouter.post("/course",function(req,res){
+adminRouter.post("/",function(req,res){
     res.json({
         message: "Works"
     })
 })
 
-adminRouter.put("/course",function(req,res){
+
+adminRouter.put("/",function(req,res){
     res.json({
         message: "Works"
     })
 })
 
-adminRouter.delete("/course/bulk",function(req,res){
+adminRouter.get("/bulk",function(req,res){
+    res.json({
+        message: "Works"
+    })
+})
+
+adminRouter.delete("/",function(req,res){
     res.json({
         message: "Works"
     })
