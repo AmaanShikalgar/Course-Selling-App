@@ -1,6 +1,6 @@
 const {Router} = require("express")
 const adminRouter = Router();
-
+const { AdminModel } = require("../db");
 
 adminRouter.post("/signin",function(req,res){
     res.json({
@@ -13,8 +13,6 @@ adminRouter.post("/signup",function(req,res){
         message: "Works"
     })
 })
-
-adminRouter.use(adminMiddleware);
 
 adminRouter.get("/course",function(req,res){
     res.json({
