@@ -26,7 +26,6 @@ A backend REST API for a course-selling platform built with **Node.js, Express.j
 * Mongoose
 * JWT
 * bcrypt
-* Zod
 * dotenv
 
 ## Project Structure
