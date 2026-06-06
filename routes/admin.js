@@ -1,39 +1,88 @@
 const {Router} = require("express")
 const adminRouter = Router();
 const { AdminModel } = require("../db");
+const { adminAuth } = require("../middleware/adminAuth")
+const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken')
+const JWT_ADMIN_SECRET = process.env.JWT_ADMIN_SECRET
 
-adminRouter.post("/signin",function(req,res){
+//bcrypt , zod , jwt 
+
+adminRouter.post("/signup",async function(req,res){
+    const{email , password, firstName, lastName} = req.body;
+    //hash the pass
+    
+    try{
+        const hashedPassword = await bcrypt.hash(password,5);
+        
+        await AdminModel.create({
+                email: email,
+                password:hashedPassword, // both are the same 
+                firstName,         // both are the same
+                lastName
+            });
+
+            res.json({
+                message:"Signup succeeded"
+            });
+            
+        }catch(err){
+            res.status(403).json({
+                message:"Invalid Credentials"
+            });
+        };
+    });
+    
+adminRouter.post("/signin",async function(req,res){
+    const {email,password} = req.body;
+
+        const admin = await AdminModel.findOne({
+            email : email
+        });
+
+        if(!admin){
+            return res.status(403).json({
+                message:"user not found"
+            });
+        }
+
+        const passwordMatch = await bcrypt.compare(password,admin.password);
+        
+        if(passwordMatch){
+            const token = jwt.sign({
+                id: admin._id
+            },JWT_ADMIN_SECRET);
+
+            //do cookie logic in future
+            res.json({
+                token : token
+            });
+        }else{
+            res.status(403).json({
+                message : "Invalid Credentials"
+            });
+        }
+    });
+
+adminRouter.post("/course",function(req,res){
     res.json({
         message: "Works"
     })
 })
 
-adminRouter.post("/signup",function(req,res){
+adminRouter.put("/course",function(req,res){
     res.json({
         message: "Works"
     })
 })
 
-adminRouter.post("/",function(req,res){
+adminRouter.get("/course/bulk",function(req,res){
     res.json({
         message: "Works"
     })
 })
 
-
-adminRouter.put("/",function(req,res){
-    res.json({
-        message: "Works"
-    })
-})
-
-adminRouter.get("/bulk",function(req,res){
-    res.json({
-        message: "Works"
-    })
-})
-
-adminRouter.delete("/",function(req,res){
+adminRouter.delete("/course",function(req,res){
     res.json({
         message: "Works"
     })
