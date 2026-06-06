@@ -63,9 +63,9 @@ userRouter.post("/signin",async function(req,res){
     });
 
 userRouter.get("/purchases",function(req,res){
-        res.json({
-            message: "works"
-        })
+        const userId = userId;
+
+        
     });
 
 module.exports = {

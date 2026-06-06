@@ -7,6 +7,8 @@ const jwt = require('jsonwebtoken');
 const course = require("./course");
 const JWT_ADMIN_SECRET = process.env.JWT_ADMIN_SECRET
 
+console.log(JWT_ADMIN_SECRET)
+
 adminRouter.post("/signup",async function(req,res){
     const{email , password, firstName, lastName} = req.body;
 
