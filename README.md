@@ -76,6 +76,7 @@ node index.js
 
 * POST `/user/signup`
 * POST `/user/signin`
+* GET `/user/purchases`
 
 ### Admin
 
@@ -90,7 +91,6 @@ node index.js
 
 * GET `/course/preview`
 * POST `/course/purchase`
-* GET `/course/purchases`
 
 ## Authentication
 
