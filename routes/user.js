@@ -8,7 +8,6 @@ const JWT_USER_SECRET = process.env.JWT_USER_SECRET;
 
 userRouter.post("/signup", async function(req,res){
         const{email , password, firstName, lastName} = req.body;
-        //hash the pass
 
         try{
             const hashedPassword = await bcrypt.hash(password,5);
@@ -65,7 +64,7 @@ userRouter.get("/purchases",async function(req,res){
     const userId = req.userId;
 
     const purchases = await PurchaseModel.find({
-        userId
+        userId,
     });
     res.json({
         purchases
