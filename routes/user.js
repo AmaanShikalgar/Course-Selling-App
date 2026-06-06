@@ -1,6 +1,6 @@
 const {Router} = require("express");
 const userRouter = Router();
-const { UserModel } = require("../db");
+const { UserModel, PurchaseModel } = require("../db");
 const { userAuth } = require("../middleware/userAuth")
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
@@ -51,7 +51,6 @@ userRouter.post("/signin",async function(req,res){
                 id: user._id
             },JWT_USER_SECRET);
 
-            //do cookie logic in future
             res.json({
                 token : token
             });
@@ -62,11 +61,16 @@ userRouter.post("/signin",async function(req,res){
         }
     });
 
-userRouter.get("/purchases",function(req,res){
-        const userId = userId;
+userRouter.get("/purchases",async function(req,res){
+    const userId = req.userId;
 
-        
+    const purchases = await PurchaseModel.find({
+        userId
     });
+    res.json({
+        purchases
+    });
+});
 
 module.exports = {
     userRouter : userRouter
