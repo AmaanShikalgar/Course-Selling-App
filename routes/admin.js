@@ -112,7 +112,7 @@ adminRouter.put("/course",adminAuth,async function(req,res){
     })
 })
 
-adminRouter.get("/course/bulk",adminAuth,function(req,res){
+adminRouter.get("/course/bulk",adminAuth, async function(req,res){
     const adminId = req.adminId
 
     const courses = await CourseModel.find({
@@ -124,11 +124,25 @@ adminRouter.get("/course/bulk",adminAuth,function(req,res){
     });
 });
 
-adminRouter.delete("/course",function(req,res){
+adminRouter.delete("/course",async function(req,res){
+    const adminId = req.adminId;
+
+    const {courseId} =  req.body;
+
+    const deletedCourse = await CourseModel.deleteOne({
+        _id:courseId,
+        creatorId:adminId   // this is filter
+    });
+
+    if (deletedCourse.deletedCount===0){
+        return res.status(404).json({
+            message: "Course not found or unautorized"
+        });
+    }
     res.json({
-        message: "Works"
-    })
-})
+        message: "Course Deleted"
+    });
+});
 
 module.exports = {
     adminRouter : adminRouter
