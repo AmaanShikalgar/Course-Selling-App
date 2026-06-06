@@ -1,9 +1,10 @@
 const {Router} = require("express");
+const userRouter = Router();
 const { UserModel } = require("../db");
+const { userAuth } = require("../middleware/userAuth")
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const JWT_USER_SECRET = process.env.JWT_USER_SECRET;
-const userRouter = Router();
 
 userRouter.post("/signup", async function(req,res){
         const{email , password, firstName, lastName} = req.body;
@@ -14,7 +15,7 @@ userRouter.post("/signup", async function(req,res){
 
             await UserModel.create({
                 email: email,
-                password:hashedPassword, // both are the same 
+                password: hashedPassword, // both are the same writing method
                 firstName,         // both are the same
                 lastName
             });

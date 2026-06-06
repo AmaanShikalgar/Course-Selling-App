@@ -1,6 +1,6 @@
 const {Router} = require("express")
 const adminRouter = Router();
-const { AdminModel } = require("../db");
+const { AdminModel, CourseModel } = require("../db");
 const { adminAuth } = require("../middleware/adminAuth")
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken')
@@ -64,15 +64,41 @@ adminRouter.post("/signin",async function(req,res){
         }
     });
 
-adminRouter.post("/course",function(req,res){
+adminRouter.post("/course",adminAuth,async function(req,res){
+    const adminId = req.userId;
+
+    const {title, description,imageUrl,price} =  req.body;
+
+    await CourseModel.create({
+        title: title,
+        description: description,
+        imageUrl: imageUrl,
+        price: price,
+        creatorId: adminId
+    })
+
     res.json({
-        message: "Works"
+        message: "Course Created",
+        courseId: course._id
     })
 })
 
-adminRouter.put("/course",function(req,res){
+adminRouter.put("/course",adminAuth,async function(req,res){
+    const adminId = req.userId;
+
+    const {title, description,imageUrl,price} =  req.body;
+
+    await CourseModel.create({
+        title: title,
+        description: description,
+        imageUrl: imageUrl,
+        price: price,
+        creatorId: adminId
+    })
+
     res.json({
-        message: "Works"
+        message: "Course Created",
+        courseId: course._id
     })
 })
 
